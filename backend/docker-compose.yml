@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  server:
+    container_name: 'NodeJS_RocketMusic'
+    build: .
+    environment:
+      NODE_ENV: development
+    ports:
+      - '3333:3333'
+    volumes:
+      - ./:/usr/app/rocketmusic
+      - ./node_modules:/usr/app/rocketmusic/node_modules
+    depends_on:
+      - mongodb
+    links:
+      - mongodb
+    tty: true
+
+  mongodb:
+    image: mongo
+    container_name: 'MongoDB_RocketMusic'
+    ports:
+      - '27017:27017'
+    volumes:
+      - ./data/db:/data/db
