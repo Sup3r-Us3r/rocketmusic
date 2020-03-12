@@ -4,6 +4,8 @@ import { Form, Input } from '@rocketseat/unform';
 // import * as Yup from 'yup';
 import { toast } from 'react-toastify';
 
+import backgroundRocket from '../../assets/rocketmusic.svg';
+
 export default function SignUp() {
   // Functions
   function handleValidation(fields) {
@@ -45,7 +47,9 @@ export default function SignUp() {
 
   return (
     <>
-      <p>Criar conta no Rocket Music</p>
+      <div>
+        <img src={backgroundRocket} alt="Rocket Music" />
+      </div>
       <Form onSubmit={handleSubmit}>
         <Input
           name="email"
@@ -60,8 +64,8 @@ export default function SignUp() {
           placeholder="Confirme sua senha"
         />
         <button type="submit">Criar conta</button>
+        <Link to="/login">Login</Link>
       </Form>
-      <Link to="/login">Login</Link>
     </>
   );
 }
