@@ -12,9 +12,6 @@ class UserController {
         return res.status(400).json({ error: 'Error finding all users!' });
       }
 
-      // Hide data
-      response[0].__v = undefined;
-
       return res.json(response);
     });
   }
@@ -40,9 +37,6 @@ class UserController {
         if (err) {
           return res.json({ error: 'Error creating user!' });
         }
-
-        // Hide data
-        response.__v = undefined;
 
         return res.json({
           data: response,
