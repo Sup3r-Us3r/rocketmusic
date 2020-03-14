@@ -35,11 +35,12 @@ class MusicController {
   async index(req, res) {
     await Music.find((err, response) => {
       if (err) {
-        res.status(400).json({ error: 'Error listing songs!' });
+        return res.status(400).json({ error: 'Error listing songs!' });
       }
 
-      // Hide Data
-      response[0].__v = undefined;
+      if (err === null) {
+        return res.json({ message: 'No music find!' });
+      }
 
       return res.json(response);
     });
