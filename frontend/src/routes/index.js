@@ -5,6 +5,7 @@ import Route from './Route';
 
 import SignIn from '../pages/SignIn';
 import SignUp from '../pages/SignUp';
+import SendMusic from '../pages/SendMusic';
 import Home from '../pages/Home';
 import Musics from '../pages/Musics';
 import Settings from '../pages/Settings';
@@ -14,6 +15,7 @@ export default function Routes() {
     <Switch>
       <Route path="/login" component={SignIn} />
       <Route path="/register" component={SignUp} />
+      <Route path="/sendmusic" component={SendMusic} isPrivate />
       <Route path="/" exact component={Home} isPrivate />
       <Route path="/musics" component={Musics} isPrivate />
       <Route path="/settings" component={Settings} isPrivate />
