@@ -3,6 +3,10 @@ import paginate from 'mongoose-paginate';
 
 class MusicModel {
   schema() {
+    const filenameSchema = new mongoose.Schema({
+      filename: String,
+    });
+
     const musicSchema = new mongoose.Schema(
       {
         name: {
@@ -25,13 +29,20 @@ class MusicModel {
           type: Date,
           required: true,
         },
+        filename: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'Filename',
+        },
       },
       { timestamps: true }
     );
 
     musicSchema.plugin(paginate);
 
-    return mongoose.model('Music', musicSchema);
+    return {
+      musicModel: mongoose.model('Music', musicSchema),
+      filenameModel: mongoose.model('Filename', filenameSchema),
+    };
   }
 }
 
