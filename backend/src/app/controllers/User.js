@@ -39,7 +39,7 @@ class UserController {
         }
 
         return res.json({
-          data: response,
+          user: response,
           token: jwt.sign({ id: response._id }, jwtSecret.secret, {
             expiresIn: '7d',
           }),
@@ -65,11 +65,10 @@ class UserController {
       }
 
       // Hide data
-      userFound.__v = undefined;
       userFound.password = undefined;
 
       return res.json({
-        data: userFound,
+        user: userFound,
         token: jwt.sign({ id: userFound._id }, jwtSecret.secret, {
           expiresIn: '7d',
         }),
