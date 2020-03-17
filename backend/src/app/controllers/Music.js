@@ -1,52 +1,56 @@
-// import { resolve, join } from 'path';
-// import fs from 'fs';
-
 import Music from '../models/Music';
 
 class MusicController {
-  async recordMusicData(filename) {
-    const date = new Date();
+  async recordMusicData(req, res) {
+    const { name, author, gender, cover, release, filename } = req.body;
 
-    const newRecord = await Music.create({
-      name: filename,
-      author: 'Author1',
-      gender: 'Gender1',
-      cover: 'Cover1',
-      release: date,
-    });
+    await Music.musicModel.create(
+      {
+        name,
+        author,
+        gender,
+        cover,
+        release,
+        filename,
+      },
+      (err, response) => {
+        if (err) {
+          return res.status(400).json({ error: 'Error creating song info!' });
+        }
 
-    if (!newRecord) {
-      return new Error('Error recording song data!');
-    }
-
-    return newRecord;
+        return res.json(response);
+      }
+    );
   }
 
-  // async show(req, res) {}
-
-  async store(req, res) {
+  async sendMusic(req, res) {
     const { filename } = req.file;
 
-    // Terei que separar a parte da música das informações dela.
+    await Music.filenameModel.create(
+      {
+        filename,
+      },
+      (err, response) => {
+        if (err) {
+          return res.status(400).json({ error: 'Error sending music!' });
+        }
 
-    return res.send();
+        return res.json(response);
+      }
+    );
   }
 
-  async index(req, res) {
-    await Music.find((err, response) => {
-      if (err) {
-        return res.status(400).json({ error: 'Error listing songs!' });
-      }
+  async listMusics(req, res) {
+    const listAllMusics = await Music.musicModel
+      .find({}, '-_id -__v')
+      .populate('filename', '-_id -__v');
 
-      if (err === null) {
-        return res.json({ message: 'No music find!' });
-      }
+    if (!listAllMusics) {
+      return res.status(400).json({ error: 'Error listing songs!' });
+    }
 
-      return res.json(response);
-    });
+    return res.json(listAllMusics);
   }
-
-  // async destroy(req, res) {}
 }
 
 export default new MusicController();
