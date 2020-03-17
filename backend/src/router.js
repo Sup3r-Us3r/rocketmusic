@@ -17,11 +17,12 @@ routes.post('/login', UserController.show);
 routes.delete('/delete/:id', UserController.destroy);
 
 // Music Routes
-routes.get('/musics', MusicController.index);
+routes.get('/musics', MusicController.listMusics);
 routes.post(
-  '/upload',
-  multer(multerConfig).single('uploadMusic'),
-  MusicController.store
+  '/sendmusic',
+  multer(multerConfig).single('sendMusic'),
+  MusicController.sendMusic
 );
+routes.post('/sendmusicinfo', MusicController.recordMusicData);
 
 export default routes;
