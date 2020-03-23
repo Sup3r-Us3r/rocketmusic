@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 
-import jwtSecrete from '../../config/auth';
+import jwtSecret from '../../config/auth';
 
 export default async (req, res, next) => {
   const getToken = req.headers.authorization;
@@ -16,14 +16,14 @@ export default async (req, res, next) => {
   }
 
   if (!schema.includes('Bearer')) {
-    res.status(401).json({ error: 'Token malformatted!' });
+    return res.status(401).json({ error: 'Token malformatted!' });
   }
 
   if (!token) {
-    res.status(401).json({ error: 'Token not found!' });
+    return res.status(401).json({ error: 'Token not found!' });
   }
 
-  await jwt.verify(token, jwtSecrete.secret, (err, decoded) => {
+  await jwt.verify(token, jwtSecret.secret, (err, decoded) => {
     if (err) {
       return res
         .status(401)
@@ -31,6 +31,8 @@ export default async (req, res, next) => {
     }
 
     req.userId = decoded.id;
+
+    return req.userId;
   });
 
   return next();
