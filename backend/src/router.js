@@ -23,6 +23,6 @@ routes.post(
   multer(multerConfig).single('sendMusic'),
   MusicController.sendMusic
 );
-routes.post('/sendmusicinfo', MusicController.recordMusicData);
+routes.post('/sendmusicinfo', MusicController.sendMusicInfo);
 
 export default routes;
