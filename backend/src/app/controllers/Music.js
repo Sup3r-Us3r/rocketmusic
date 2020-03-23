@@ -1,7 +1,7 @@
 import Music from '../models/Music';
 
 class MusicController {
-  async recordMusicData(req, res) {
+  async sendMusicInfo(req, res) {
     const { name, author, gender, cover, release, filename } = req.body;
 
     await Music.musicModel.create(
@@ -28,7 +28,7 @@ class MusicController {
 
     await Music.filenameModel.create(
       {
-        filename,
+        originalName: filename,
       },
       (err, response) => {
         if (err) {
@@ -43,7 +43,8 @@ class MusicController {
   async listMusics(req, res) {
     const listAllMusics = await Music.musicModel
       .find({}, '-_id -__v')
-      .populate('filename', '-_id -__v');
+      .populate('filename', '-_id -__v')
+      .sort({ createdAt: 'DESC' });
 
     if (!listAllMusics) {
       return res.status(400).json({ error: 'Error listing songs!' });
