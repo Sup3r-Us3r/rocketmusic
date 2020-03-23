@@ -4,7 +4,7 @@ import paginate from 'mongoose-paginate';
 class MusicModel {
   schema() {
     const filenameSchema = new mongoose.Schema({
-      filename: String,
+      originalName: String,
     });
 
     const musicSchema = new mongoose.Schema(
