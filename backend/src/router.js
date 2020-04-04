@@ -18,6 +18,7 @@ routes.delete('/delete/:id', UserController.destroy);
 
 // Music Routes
 routes.get('/musics', MusicController.listMusics);
+routes.get('/musics/:id', MusicController.listMusic);
 routes.post(
   '/sendmusic',
   multer(multerConfig).single('sendMusic'),
