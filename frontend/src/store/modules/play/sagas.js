@@ -1,15 +1,27 @@
-// import { call, put, select, all, takeLatest } from 'redux-saga/effects';
+import { call, put, select, all, takeLatest } from 'redux-saga/effects';
 
-// import { playingSuccess } from './actions';
+import { sendMusicInfoSuccess } from './actions';
 
-// import api from '../../../services/api';
+import api from '../../../services/api';
 
-// export function* play({ payload }) {
-//   const { id } = payload;
+export function* play({ payload }) {
+  const { id } = payload;
 
-//   const response = yield call(api.get, `/music/${id}`);
+  // const headerParams = {
+  //   responseType: 'blob',
+  // };
 
-//   yield put(playingSuccess(response.data.music));
-// }
+  // const response = yield call(api.get, `/musics/${id}`, {
+  //   headers: headerParams,
+  // });
 
-// export default all([takeLatest('@play/PLAYING_REQUEST', play)]);
+  const response = yield call(api.get, `/musics/info/${id}`);
+
+  const musicId = { id };
+
+  const data = Object.assign(musicId, response.data);
+
+  yield put(sendMusicInfoSuccess(data));
+}
+
+export default all([takeLatest('@play/SEND_MUSIC_INFO_REQUEST', play)]);
