@@ -26,13 +26,14 @@ export const Content = styled.div`
 
 export const Music = styled.div`
   margin: 25px 25px 0 0;
+  user-select: none;
 
   div {
     position: relative;
     cursor: pointer;
 
     &:hover {
-      div {
+      img {
         filter: blur(2px);
       }
 
@@ -41,15 +42,14 @@ export const Music = styled.div`
       }
     }
 
-    div {
-      background: url(${props => props.musicImage});
-      background-repeat: no-repeat;
-      background-size: 170px 170px;
+    img {
+      object-fit: cover;
       height: 170px;
       width: 170px;
       margin-bottom: 5px;
       border-radius: 5px;
       cursor: pointer;
+      pointer-events: none;
       transition: filter 0.3s;
     }
 
