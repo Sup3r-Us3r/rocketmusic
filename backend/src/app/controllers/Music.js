@@ -44,6 +44,20 @@ class MusicController {
     );
   }
 
+  async listMusicInfo(req, res) {
+    const { id } = req.params;
+
+    const music = await Music.musicModel
+      .findOne({ _id: id }, '-_id -__v')
+      .populate('filename', '-_id -__v');
+
+    if (!music) {
+      return res.status(400).json({ error: 'Error listing music!' });
+    }
+
+    return res.json(music);
+  }
+
   async listMusic(req, res) {
     const { id } = req.params;
 
@@ -78,7 +92,7 @@ class MusicController {
     const stream = fs.createReadStream(musicPath);
 
     // When the song is fully loaded, read it
-    stream.on('end');
+    stream.on('end', () => 'stream completed');
 
     // Streaming audio
     return stream.pipe(res);
