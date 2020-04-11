@@ -11,6 +11,7 @@ export const BorderRounded = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  user-select: none;
 
   @media (max-width: 970px) {
     display: none;
@@ -19,11 +20,13 @@ export const BorderRounded = styled.div`
   img:nth-child(1) {
     height: 80px;
     margin-top: -80px;
+    pointer-events: none;
   }
 
   img:nth-child(2) {
     height: 80px;
     margin-top: -80px;
+    pointer-events: none;
   }
 `;
 
@@ -52,6 +55,8 @@ export const MusicInfo = styled.div`
     height: 75px;
     width: 75px;
     border-radius: 50%;
+    pointer-events: none;
+    object-fit: cover;
     box-shadow: 0 0 0 5px rgba(255, 255, 255, 0.2),
       0 0 0 11px rgba(255, 255, 255, 0.1);
 
@@ -66,7 +71,7 @@ export const MusicInfo = styled.div`
 
     p {
       color: #fff;
-      font-size: 23px;
+      font-size: 20px;
       font-weight: bold;
       line-height: 1.3;
 
